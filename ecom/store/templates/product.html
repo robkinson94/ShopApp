@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Product{% endblock title %}
+{% block section %}
+<section style="background-color: #eee;">
+    <div class="container py-5">
+        <a href="{% url 'home' %}"><button class="btn btn-primary">Back</button></a>
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 col-xl-4">
+          <div class="card" style="border-radius: 15px;">
+            <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
+              data-mdb-ripple-color="light">
+              {% if product.is_sale %}
+              <div class="badge bg-dark text-white position-absolute"
+              style="top: 0.5rem; right: 0.5rem;">Sale</div>
+              {% endif %}
+              <img src="{{ product.image.url }}"
+                style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
+                alt="Laptop" />
+              <a href="#!">
+                <div class="mask"></div>
+              </a>
+            </div>
+            <div class="card-body pb-0">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <p><a href="#!" class="text-dark">{{ product.name }}</a></p>
+                  <p class="small text-muted">{{ product.description }}</p>
+                </div>
+                <div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-0" />
+            <div class="card-body pb-0">
+              <div class="d-flex justify-content-between">
+                {% if product.is_sale %}
+                <p><a href="#!" class="text-dark">£{{ product.sale_price }}</a></p>
+                <strike><a href="#!" class="text-dark">£{{ product.price }}</a></strike>
+                {% else %}
+                <p><a href="#!" class="text-dark">£{{ product.price }}</a></p>
+                {% endif %}
+                <p class="text-dark">Quantity: </p>
+                <div class="col-md-3 col-lg-3 col-xl-3">
+                    <select class="select" style="width:50px;" id="qty-cart">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                  </div>
+              </div>
+            </div>
+            <hr class="my-0" />
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
+                <a href="{% url 'home' %}" class="text-dark fw-bold">Cancel</a>
+                <button type="button" class="btn btn-primary" id="add-cart" value="{{ product.id }}">Add to cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock section %}
